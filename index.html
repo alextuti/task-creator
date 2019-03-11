@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Task Creator</title>
+</head>
+<body>
+    <div class="container">
+        <div class="task-creator">
+            <span class="task-creator-title">Task Creator</span>
+            <form class="task-form">
+                <div class="task-title">
+                    <input type="text" id="task-title" name="task-title" placeholder="Task title...">
+                </div>
+                <div class="add-task">
+                    <input type="submit" value="Add Task" id="add-task">
+                </div>
+            </form>
+        </div>
+        <div class="task-box">
+            <header class="task-box-title">Tasks</header>
+            <input type="text" name="task-filter" id="task-filter">
+            <label for="task-filter">Filter Tasks</label>
+            <ul class="task-list"></ul>
+            <a href="#" class="clear-tasks"></a>
+        </div>
+
+    </div>
+
+
+    <script src="app.js" ></script>
+</body>
+</html>

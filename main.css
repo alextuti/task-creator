@@ -1,0 +1,46 @@
+/*-------------------------------------------------------------------------------------- */
+:root{
+    --light: white;
+    --dark: #333;
+}
+
+html{
+    font-family: monospace;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+/*--------------------------------------------------------------------------------------*/
+
+
+/* The container that holds thw two components of the app*/
+.container{
+    display: grid;
+    grid-template: 25vh auto / 40vw;
+    row-gap: 50px;
+    margin: 50px 0px 0px 50px;
+}
+
+/* Task creator holds the input from the user*/
+.task-creator{
+    grid-area: 1/1/2/2;
+    grid-template-rows: 6vh;
+    grid-gap: 15px;
+    border: 2px solid var(--dark);
+}
+
+.task-creator-title{
+    grid-area: 1/1/2/2;
+}
+
+.task-form{
+    grid-area: 2/1/3/2;
+}
+
+/* Task box is the result from the input of the user*/
+.task-box{
+    grid-area: 2/1/3/2;
+    border: 2px solid var(--dark);
+}
