@@ -2,6 +2,7 @@
 :root{
     --light: white;
     --dark: #333;
+    --grey: rgb(230,230,230);
 }
 
 html{
@@ -11,6 +12,7 @@ html{
 body{
     margin: 0;
     padding: 0;
+    background-color: aliceblue;  
 }
 /*--------------------------------------------------------------------------------------*/
 
@@ -18,29 +20,105 @@ body{
 /* The container that holds thw two components of the app*/
 .container{
     display: grid;
-    grid-template: 25vh auto / 40vw;
-    row-gap: 50px;
+    grid-template: 200px minmax(180px, auto) / 550px;
+    row-gap: 25px;
     margin: 50px 0px 0px 50px;
 }
 
 /* Task creator holds the input from the user*/
 .task-creator{
     grid-area: 1/1/2/2;
-    grid-template-rows: 6vh;
-    grid-gap: 15px;
-    border: 2px solid var(--dark);
+    display: grid;
+    grid-template-rows: 25px 110px;
+    grid-gap: 35px;
+    border: none;
+    padding: 15px;
+    min-width: 550px;
+    background-color: var(--grey);
 }
 
 .task-creator-title{
     grid-area: 1/1/2/2;
+    font-size: 20px;
 }
 
 .task-form{
     grid-area: 2/1/3/2;
+    display: grid;
+    grid-template-rows: 25px 30px;
+    grid-gap: 55px;
+}
+
+#task-title{
+    grid-area: 1/1/2/2;
+    width: 100%; 
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    border-color: var(--dark);
+    background-color: transparent;
+}
+
+#add-task{
+    grid-area: 2/1/3/2;
+    width: 150px;
+    margin-left: 200px;
+    background-color: var(--dark);
+    color: var(--light);
+    border: none;
+    padding: 0;
 }
 
 /* Task box is the result from the input of the user*/
 .task-box{
     grid-area: 2/1/3/2;
-    border: 2px solid var(--dark);
+    display: grid;
+    grid-template-rows: 25px 25px minmax(0, auto) 30px;
+    grid-gap: 35px;
+    border: none;
+    padding: 15px;
+    min-width: 550px;
+    background-color: var(--grey);
+}
+
+.task-box-title{
+    grid-area: 1/1/2/2;;
+    font-size: 20px;
+}
+
+#task-filter{
+    grid-area: 2/1/3/2;
+    border-right: none;
+    border-left: none;
+    border-top: none;
+    border-color: var(--dark);
+    background-color: transparent;
+}
+ul{
+    margin: 0;
+    padding: 0;
+}
+.task-list{
+    grid-area: 3/1/4/2;
+}
+
+#task-list-item{
+    width: 100%;
+    height: 30px;
+    list-style: none;
+    background-color: var(--dark);
+    color: white;
+    margin-top: 4px;
+    font-size: 15px;
+    line-height: 30px;
+}
+
+#clear-tasks{
+    grid-area: 4/1/5/2;
+    width: 150px;
+    margin-left: 200px;
+    background-color: var(--dark);
+    color: var(--light);
+    border: none;
+    padding: 0;
 }

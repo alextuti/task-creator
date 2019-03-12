@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,22 +11,17 @@
 <body>
     <div class="container">
         <div class="task-creator">
-            <span class="task-creator-title">Task Creator</span>
+            <header class="task-creator-title">Task Creator</header>
             <form class="task-form">
-                <div class="task-title">
-                    <input type="text" id="task-title" name="task-title" placeholder="Task title...">
-                </div>
-                <div class="add-task">
-                    <input type="submit" value="Add Task" id="add-task">
-                </div>
+                <input type="text" id="task-title" name="task-title" placeholder="Task title...">
+                <input type="submit" value="Add Task" id="add-task">
             </form>
         </div>
         <div class="task-box">
             <header class="task-box-title">Tasks</header>
-            <input type="text" name="task-filter" id="task-filter">
-            <label for="task-filter">Filter Tasks</label>
+            <input type="text" name="task-filter" id="task-filter" placeholder="Filter tasks...">
             <ul class="task-list"></ul>
-            <a href="#" class="clear-tasks"></a>
+            <input type="button" name="clear-tasks" id="clear-tasks" value="Clear tasks">
         </div>
 
     </div>
