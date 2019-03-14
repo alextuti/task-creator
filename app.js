@@ -78,6 +78,13 @@ function getTasks(){
     tasks.forEach(function(task){
         const li=document.createElement('li');
         li.id='task-list-item';
+    
+        deadlines.forEach(function(dl){
+        const deadline=document.createElement('span');
+        deadline.textContent=dl;
+        deadline.id='task-deadline-output';
+        li.appendChild(deadline);
+    })
         const taskTitleOutput=document.createElement('span');
         taskTitleOutput.textContent=task;
         taskTitleOutput.id='task-title-output';
@@ -90,12 +97,7 @@ function getTasks(){
         taskList.appendChild(li);
     })
 
-    deadlines.forEach(function(dl){
-        const deadline=document.createElement('span');
-        deadline.textContent=dl;
-        deadline.id='task-deadline-output';
-        li.appendChild(deadline);
-    })
+    
 }
 
 function storeTaskLocally(task){
@@ -138,14 +140,29 @@ function deleteItemLocally(taskItem){
     } else{
         tasks=JSON.parse(localStorage.getItem('tasks'));
     }
+    
+    let deadlines;
+    if(localStorage.getItem('deadlines') === null){
+        deadlines=[];
+    } else{
+        deadlines=JSON.parse(localStorage.getItem('deadlines'));
+    }
 
     tasks.forEach(function(task, index){
-        if(taskItem.textContent === task){
+        if(taskItem.firstChild.nextSibling.textContent === task){
             tasks.splice(index, 1);
         }
     })
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    deadlines.forEach(function(deadline, index){
+        if(taskItem.firstChild.textContent === deadline){
+            deadlines.splice(index, 1);
+        }
+    })
+
+    localStorage.setItem('deadlines', JSON.stringify(deadlines));
 }
 
 
