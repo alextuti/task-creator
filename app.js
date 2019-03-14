@@ -6,6 +6,7 @@ const taskForm=document.querySelector('#task-form');
 const addTask=document.querySelector('#add-task');
 const clearTasks=document.querySelector('#clear-tasks');
 const taskFilter=document.querySelector('#task-filter');
+const taskDeadline=document.querySelector('#task-deadline');
 loadEventListeners();
 
 function loadEventListeners(){
@@ -36,7 +37,14 @@ function createTask(e){
     } 
     const li=document.createElement('li');
     li.id='task-list-item';
-    li.appendChild(document.createTextNode(taskTitle.value));
+    const deadline=document.createElement('span');
+    deadline.textContent=taskDeadline.value;
+    deadline.id='task-deadline-output';
+    li.appendChild(deadline);
+    const taskTitleOutput=document.createElement('span');
+    taskTitleOutput.textContent=taskTitle.value;
+    taskTitleOutput.id='task-title-output';
+    li.appendChild(taskTitleOutput);
     const link=document.createElement('a');
     link.className='delete-btn';
     link.innerHTML='<i class="fas fa-trash-alt"></i>';
@@ -44,6 +52,8 @@ function createTask(e){
     li.appendChild(link);
     taskList.appendChild(li);
     storeTaskLocally(taskTitle.value);
+    storeDeadlineLocally(taskDeadline.value);
+    taskDeadline.value='';
     taskTitle.value='';
     e.preventDefault();
     
@@ -57,17 +67,34 @@ function getTasks(){
     } else{
         tasks=JSON.parse(localStorage.getItem('tasks'));
     }
+
+    let deadlines;
+    if(localStorage.getItem('deadlines') === null){
+        deadlines=[];
+    } else{
+        deadlines=JSON.parse(localStorage.getItem('deadlines'));
+    }
     
     tasks.forEach(function(task){
         const li=document.createElement('li');
         li.id='task-list-item';
-        li.appendChild(document.createTextNode(task));
+        const taskTitleOutput=document.createElement('span');
+        taskTitleOutput.textContent=task;
+        taskTitleOutput.id='task-title-output';
+        li.appendChild(taskTitleOutput);
         const link=document.createElement('a');
         link.className='delete-btn';
         link.innerHTML='<i class="fas fa-trash-alt"></i>';
         link.style.color='white';
         li.appendChild(link);
         taskList.appendChild(li);
+    })
+
+    deadlines.forEach(function(dl){
+        const deadline=document.createElement('span');
+        deadline.textContent=dl;
+        deadline.id='task-deadline-output';
+        li.appendChild(deadline);
     })
 }
 
@@ -81,6 +108,18 @@ function storeTaskLocally(task){
     tasks.push(task);
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function storeDeadlineLocally(deadline){
+    let deadlines;
+    if(localStorage.getItem('deadlines') === null){
+        deadlines=[];
+    } else{
+        deadlines=JSON.parse(localStorage.getItem('deadlines'));
+    }
+    deadlines.push(deadline);
+
+    localStorage.setItem('deadlines', JSON.stringify(deadlines));
 }
 
 function deleteItem(e){
@@ -125,7 +164,7 @@ function filterTasks(e){
     const filterText=e.target.value.toLowerCase();
 
     document.querySelectorAll('#task-list-item').forEach(function(task){
-        const title=task.firstChild.textContent;
+        const title=task.firstChild.nextSibling.textContent;
         if(title.toLowerCase().indexOf(filterText) !== -1){
             task.style.display='flex';
         } else {
