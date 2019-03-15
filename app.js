@@ -7,6 +7,8 @@ const addTask=document.querySelector('#add-task');
 const clearTasks=document.querySelector('#clear-tasks');
 const taskFilter=document.querySelector('#task-filter');
 const taskDeadline=document.querySelector('#task-deadline');
+const taskListItem=document.querySelector('#task-list-item');
+const taskDescription=document.querySelector('#task-description');
 loadEventListeners();
 
 function loadEventListeners(){
@@ -24,6 +26,9 @@ clearTasks.addEventListener('click', clearItems);
 
 // The event that filters the results
 taskFilter.addEventListener('keyup', filterTasks);
+
+// The event that triggers the accordion
+taskListItem.addEventListener('click', showAccordion);
 
 }
 
@@ -59,9 +64,11 @@ function createTask(e){
     // Storing the tasks/deadlines in the localStorage
     storeTaskLocally(taskTitle.value);
     storeDeadlineLocally(taskDeadline.value);
+    storeDescriptionLocally(taskDescription.value);
     // Assigning empty string to input items after the task was created
     taskDeadline.value='';
     taskTitle.value='';
+    taskDescription.value='';
     // Prevent the default of the event
     e.preventDefault();
     
@@ -148,6 +155,21 @@ function storeDeadlineLocally(deadline){
     localStorage.setItem('deadlines', JSON.stringify(deadlines));
 }
 
+// This function stores the descriptions in the localStorage
+function storeDescriptionLocally(description){
+    let descriptions;
+
+    if(localStorage.getItem('descriptions') === null){
+        descriptions=[];
+    } else{
+        descriptions=JSON.parse.localStorage.getItem('descriptions');
+    }
+
+    descriptions.push(description);
+
+    localStorage.setItem('descriptions', JSON.stringify(descriptions));
+}
+
 // This function deletes the items from the taskBox
 function deleteItem(e){
     if(e.target.parentElement.classList.contains('delete-btn')){
@@ -223,5 +245,13 @@ function filterTasks(e){
             task.style.display='none';
         }
     });
+}
+
+// The function that shows the accordion for task description
+function showAccordion(e){
+    const p=document.createElement('p');
+    p.id='task-description-accordion';
+    p.textContent=JSON.parse.localStorage.getItem('descriptions')[indexOf(e.target.firstChild.textContent)];
+    taskList.insertBefore(p, e.target.nextSibling);
 }
 
