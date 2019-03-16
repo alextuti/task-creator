@@ -28,7 +28,7 @@ clearTasks.addEventListener('click', clearItems);
 taskFilter.addEventListener('keyup', filterTasks);
 
 // The event that triggers the accordion
-taskListItem.addEventListener('click', showAccordion);
+taskList.addEventListener('click', showAccordion);
 
 }
 
@@ -62,9 +62,8 @@ function createTask(e){
     // Appending the list items to the list
     taskList.appendChild(li);
     // Storing the tasks/deadlines in the localStorage
-    storeTaskLocally(taskTitle.value);
-    storeDeadlineLocally(taskDeadline.value);
-    storeDescriptionLocally(taskDescription.value);
+    storeItemLocally(taskTitle.value, taskDescription.value, taskDeadline.value);
+    // storeDescriptionLocally(taskDescription.value);
     // Assigning empty string to input items after the task was created
     taskDeadline.value='';
     taskTitle.value='';
@@ -123,8 +122,8 @@ function getTasks(){
     
 }
 
-// This function stores the taskTitles in the localStorage
-function storeTaskLocally(task){
+// This function stores taskTitles, taskDescriptions and taskDeadlines in the localStorage
+function storeItemLocally(task, description, deadline){
     // Tasks variable
     let tasks;
     if(localStorage.getItem('tasks') === null){
@@ -135,13 +134,15 @@ function storeTaskLocally(task){
     // Pushing each new task in the localStorage
     tasks.push(task);
     
-    // Setting the 'tasks' key to tasks variable
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-}
-
-// This function stores the deadlines in the localStorage
-function storeDeadlineLocally(deadline){
-    // Deadlines variable
+    let descriptions;
+    if(localStorage.getItem('tasks') === null){
+        descriptions=[];
+    } else{
+        descriptions=JSON.parse(localStorage.getItem('descriptions'));
+    }
+    // Pushing each new task in the localStorage
+    descriptions.push(description);
+    
     let deadlines;
     if(localStorage.getItem('deadlines') === null){
         deadlines=[];
@@ -151,23 +152,10 @@ function storeDeadlineLocally(deadline){
     // Pushing each new deadline in the localStorage
     deadlines.push(deadline);
     
-    // Setting the 'deadlines' key to deadlines variable
-    localStorage.setItem('deadlines', JSON.stringify(deadlines));
-}
-
-// This function stores the descriptions in the localStorage
-function storeDescriptionLocally(description){
-    let descriptions;
-
-    if(localStorage.getItem('descriptions') === null){
-        descriptions=[];
-    } else{
-        descriptions=JSON.parse.localStorage.getItem('descriptions');
-    }
-
-    descriptions.push(description);
-
+    // Setting the 'tasks' key to tasks variable
+    localStorage.setItem('tasks', JSON.stringify(tasks));
     localStorage.setItem('descriptions', JSON.stringify(descriptions));
+    localStorage.setItem('deadlines', JSON.stringify(deadlines));
 }
 
 // This function deletes the items from the taskBox
@@ -176,8 +164,6 @@ function deleteItem(e){
         e.target.parentElement.parentElement.remove();
         deleteItemLocally(e.target.parentElement.parentElement);
     }
-
-    
 }
 
 // This function deletes the items from the localStorage
@@ -189,6 +175,13 @@ function deleteItemLocally(taskItem){
         tasks=JSON.parse(localStorage.getItem('tasks'));
     }
     
+    let descriptions;
+    if(localStorage.getItem('tasks') === null){
+        descriptions=[];
+    } else{
+        descriptions=JSON.parse(localStorage.getItem('tasks'));
+    }
+
     let deadlines;
     if(localStorage.getItem('deadlines') === null){
         deadlines=[];
@@ -200,19 +193,15 @@ function deleteItemLocally(taskItem){
     tasks.forEach(function(task, index){
         if(taskItem.firstChild.nextSibling.textContent === task){
             tasks.splice(index, 1);
-        }
-    })
-
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    
-    // Each deadline is removed from the localStorage
-    deadlines.forEach(function(deadline, index){
-        if(taskItem.firstChild.textContent === deadline){
+            descriptions.splice(index, 1);
             deadlines.splice(index, 1);
         }
     })
 
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('descriptions', JSON.stringify(descriptions));
     localStorage.setItem('deadlines', JSON.stringify(deadlines));
+    
 }
 
 // The function that clears the taskBox of all the tasks created
@@ -249,9 +238,17 @@ function filterTasks(e){
 
 // The function that shows the accordion for task description
 function showAccordion(e){
+    let tasks;
+    if(localStorage.getItem('tasks') === null){
+        tasks=[];
+    } else{
+        tasks=JSON.parse(localStorage.getItem('tasks'));
+    }
+    
+
     const p=document.createElement('p');
     p.id='task-description-accordion';
-    p.textContent=JSON.parse.localStorage.getItem('descriptions')[indexOf(e.target.firstChild.textContent)];
+    p.textContent=JSON.parse(localStorage.getItem('descriptions'))[tasks.indexOf(e.target.firstChild.nextSibling.textContent)];
     taskList.insertBefore(p, e.target.nextSibling);
 }
 
