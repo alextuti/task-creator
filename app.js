@@ -254,10 +254,12 @@ function filterTasks(e){
 // The function that shows the accordion for task description
 function showAccordion(e){
     let acc=e.target.nextSibling;
-    if(acc.style.display === 'block'){
-        acc.style.display ='none';
-    } else{
-        acc.style.display ='block';
+    if(acc.id !== 'task-list-item'){
+        if(acc.style.display === 'block'){
+            acc.style.display ='none';
+        } else{
+            acc.style.display ='block';
+        }
     }
 }
 
