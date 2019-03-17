@@ -57,10 +57,14 @@ function createTask(e){
     link.className='delete-btn';
     link.innerHTML='<i class="fas fa-trash-alt"></i>';
     link.style.color='white';
-    // Appending the delete buttons to the list items
     li.appendChild(link);
+    // Creating & appending the description to the list
+    const p=document.createElement('p');
+    p.id='task-description-accordion';
+    p.textContent=taskDescription.value;
     // Appending the list items to the list
     taskList.appendChild(li);
+    taskList.appendChild(p);
     // Storing the tasks/deadlines in the localStorage
     storeItemLocally(taskTitle.value, taskDescription.value, taskDeadline.value);
     // storeDescriptionLocally(taskDescription.value);
@@ -90,6 +94,13 @@ function getTasks(){
     } else{
         deadlines=JSON.parse(localStorage.getItem('deadlines'));
     }
+    
+    let descriptions;
+    if(localStorage.getItem('tasks') === null){
+        descriptions=[];
+    } else{
+        descriptions=JSON.parse(localStorage.getItem('descriptions'));
+    }
 
     // Creating each element using the data from localStorage
     let i=0;
@@ -112,9 +123,13 @@ function getTasks(){
         link.className='delete-btn';
         link.innerHTML='<i class="fas fa-trash-alt"></i>';
         link.style.color='white';
+        const p=document.createElement('p');
+        p.id='task-description-accordion';
+        p.textContent=descriptions[i];
         // appending
         li.appendChild(link);
         taskList.appendChild(li);
+        taskList.appendChild(p);
         // Incrementing i so it jumps to the next value in the localStorage key 'deadlines'
         i++;
     });
@@ -238,17 +253,12 @@ function filterTasks(e){
 
 // The function that shows the accordion for task description
 function showAccordion(e){
-    let tasks;
-    if(localStorage.getItem('tasks') === null){
-        tasks=[];
+    let acc=e.target.nextSibling;
+    if(acc.style.display === 'block'){
+        acc.style.display ='none';
     } else{
-        tasks=JSON.parse(localStorage.getItem('tasks'));
+        acc.style.display ='block';
     }
-    
-
-    const p=document.createElement('p');
-    p.id='task-description-accordion';
-    p.textContent=JSON.parse(localStorage.getItem('descriptions'))[tasks.indexOf(e.target.firstChild.nextSibling.textContent)];
-    taskList.insertBefore(p, e.target.nextSibling);
 }
+
 

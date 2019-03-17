@@ -74,9 +74,12 @@ body{
 }
 
 #task-description-accordion{
+    display: none;
     background-color: var(--light);
     color: var(--dark);
-    height: 50px;
+    height: 65px;
+    margin-top: 0;
+    /* overflow: hidden; */
 }
 
 /* The output of the deadline visible in the taskBox */
@@ -154,7 +157,7 @@ body{
     padding-left: 5px;
     display: flex;
     flex-direction: column;
-    box-shadow: 1.5px 1.5px 1.5px 1.5px grey;
+    box-shadow: -1.5px 1.5px 1.5px -1.5px grey;
 }
 
 #task-list-item:hover{
