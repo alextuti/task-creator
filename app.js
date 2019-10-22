@@ -123,13 +123,13 @@ function getTasks(){
         link.className='delete-btn';
         link.innerHTML='<i class="fas fa-trash-alt"></i>';
         link.style.color='white';
-        const p=document.createElement('p');
-        p.id='task-description-accordion';
-        p.textContent=descriptions[i];
+        const accordion=document.createElement('p');
+        accordion.id='task-description-accordion';
+        accordion.textContent=descriptions[i];
         // appending
         li.appendChild(link);
         taskList.appendChild(li);
-        taskList.appendChild(p);
+        taskList.appendChild(accordion);
         // Incrementing i so it jumps to the next value in the localStorage key 'deadlines'
         i++;
     });
@@ -253,8 +253,9 @@ function filterTasks(e){
 
 // The function that shows the accordion for task description
 function showAccordion(e){
+    console.log(e.target);
     let acc=e.target.nextSibling;
-    if(acc.id !== 'task-list-item'){
+    if(acc.id !== 'task-list-item' && acc.id !== 'task-title-output' && acc.className !== 'delete-btn'){
         if(acc.style.display === 'block'){
             acc.style.display ='none';
         } else{

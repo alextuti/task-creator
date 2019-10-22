@@ -60,6 +60,7 @@ body{
     border-top: none;
     border-color: var(--dark);
     background-color: transparent;
+    outline: none;
 }
 
 /* The box that holds the deadline input and label */
@@ -135,6 +136,7 @@ body{
     border-top: none;
     border-color: var(--dark);
     background-color: transparent;
+    outline: none;
 }
 
 /* The taskList */
@@ -177,9 +179,9 @@ body{
 
 /* The trash-icon button for deleting an item from the list */
 .delete-btn{
-    position: absolute;
+    position: relative;
     align-self: flex-end;
-    margin-right: 5px;
+    margin-right: 15px;
     line-height: 30px;
 }
 
