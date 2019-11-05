@@ -176,7 +176,7 @@ function storeItemLocally(task, description, deadline){
 // This function deletes the items from the taskBox
 function deleteItem(e){
     if(e.target.parentElement.classList.contains('delete-btn')){
-        e.target.parentElement.parentElement.remove();
+        e.target.parentElement.parentElement.parentElement.remove();
         deleteItemLocally(e.target.parentElement.parentElement);
     }
 }
@@ -253,7 +253,6 @@ function filterTasks(e){
 
 // The function that shows the accordion for task description
 function showAccordion(e){
-    console.log(e.target);
     let acc=e.target.nextSibling;
     if(acc.id !== 'task-list-item' && acc.id !== 'task-title-output' && acc.className !== 'delete-btn'){
         if(acc.style.display === 'block'){
